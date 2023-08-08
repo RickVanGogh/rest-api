@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.13
+FROM python:3.9.6
 LABEL maintainer="Beethoven"
 
 ENV PYTHONUNBUFFERED 1
@@ -10,6 +10,9 @@ EXPOSE 8000
 
 
 ARG DEV=false
+RUN apt update -y
+RUN apt upgrade -y
+RUN apt install mariadb-client -y
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip &&\
     /py/bin/pip install -r /tmp/requirements.txt && \
@@ -20,7 +23,6 @@ RUN python -m venv /py && \
         django-user
 
 ENV PATH="/py/bin:$PATH"
-
 USER django-user
 
 

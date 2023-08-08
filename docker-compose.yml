@@ -26,14 +26,19 @@ services:
 
 
   db:
-    image: mariadb:10.6.14
+   # hostname: db
+    image: mariadb:10.4.11
     volumes:
       - dev-db-data:/var/lib/mariadbsql/data
     environment:
-      - MARIADB_ROOT_PASSWORD=1234
-      - MARIADB_DB=devdb
-      - MARIADB_USER=devuser
-      - MARIADB_PASSWORD=changeme
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_DB: docker
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+    ports:
+      - "127.0.0.1:3306:3306"
+    expose:
+      - 3306
 
 volumes:
   dev-db-data:
